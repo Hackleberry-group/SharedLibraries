@@ -19,7 +19,6 @@ public class TableStorageCommandService : ITableStorageCommandService
 
         await tableClient.CreateIfNotExistsAsync();
         await tableClient.AddEntityAsync(entity);
-
     }
 
     public async Task UpdateEntityAsync<T>(string tableName, T entity) where T : class, ITableEntity, new()
