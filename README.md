@@ -1,13 +1,13 @@
-# Hackleberry Shared Models
+# Hackleberry Shared Libraries
 
 ## Summary
-2 class libraries, one for models and one for exceptions
+3 class libraries, one for models and one for exceptions, and one for common services
 
 ## Adding as Git Submodule
-1. Enter repository in which you want to add SharedModels as git submodule.
+1. Enter repository in which you want to add SharedLibraries as git submodule.
 
 2. Run the following:
 ```sh
-git submodule add https://github.com/Hackleberry-group/SharedModels.git
+git submodule add https://github.com/Hackleberry-group/SharedLibraries.git
 ```
 
