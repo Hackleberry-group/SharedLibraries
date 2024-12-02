@@ -3,9 +3,11 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.11.35208.52
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HackleberrySharedModels", "HackleberrySharedModels\HackleberrySharedModels.csproj", "{A04A4318-DBC1-4ABE-9823-367E8FFAE776}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HackleberrySharedModels", "HackleberrySharedModels\HackleberrySharedModels.csproj", "{A04A4318-DBC1-4ABE-9823-367E8FFAE776}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HackleberryExceptions", "Exceptions\HackleberryExceptions.csproj", "{52271026-0EC6-4E4C-85E7-50B2822E670B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HackleberryExceptions", "Exceptions\HackleberryExceptions.csproj", "{52271026-0EC6-4E4C-85E7-50B2822E670B}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HackleberryServices", "HackleberryServices\HackleberryServices.csproj", "{CD3E0093-375D-4243-80F7-EBBDB32E412B}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -21,6 +23,10 @@ Global
 		{52271026-0EC6-4E4C-85E7-50B2822E670B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{52271026-0EC6-4E4C-85E7-50B2822E670B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{52271026-0EC6-4E4C-85E7-50B2822E670B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CD3E0093-375D-4243-80F7-EBBDB32E412B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CD3E0093-375D-4243-80F7-EBBDB32E412B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CD3E0093-375D-4243-80F7-EBBDB32E412B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CD3E0093-375D-4243-80F7-EBBDB32E412B}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
