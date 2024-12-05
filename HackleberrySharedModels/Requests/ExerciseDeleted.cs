@@ -2,7 +2,7 @@
 
 namespace HackleberrySharedModels.Requests;
 
-public class ExerciseDelete
+public class ExerciseDeleted
 {
     public Guid ExerciseId { get; set; }
 
