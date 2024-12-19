@@ -19,3 +19,9 @@ scrape_configs:
       insecure_skip_verify: true
     static_configs:
         - targets: ['host.docker.internal:7140']
+  - job_name: 'achievement-service-app'
+    scheme: https
+    tls_config:
+      insecure_skip_verify: true
+    static_configs:
+        - targets: ['host.docker.internal:7227']
