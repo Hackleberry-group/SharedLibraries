@@ -1,0 +1,21 @@
+global:
+  scrape_interval: 15s
+scrape_configs:
+  - job_name: 'file-service-app'
+    scheme: https
+    tls_config:
+      insecure_skip_verify: true
+    static_configs:
+      - targets: ['host.docker.internal:7017']
+  - job_name: 'course-service-app'
+    static_configs:
+        - targets: ['host.docker.internal:1030']
+  - job_name: 'question-service-app'
+    static_configs:
+        - targets: ['host.docker.internal:5219']
+  - job_name: 'user-service-app'
+    scheme: https
+    tls_config:
+      insecure_skip_verify: true
+    static_configs:
+        - targets: ['host.docker.internal:7140']
