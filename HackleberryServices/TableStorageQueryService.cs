@@ -52,4 +52,18 @@ public class TableStorageQueryService : ITableStorageQueryService
 
         await tableClient.DeleteEntityAsync(partitionKey, rowKey);
     }
+
+    public async Task<IEnumerable<T>> GetEntitiesByFilterAsync<T>(string tableName, string filter) where T : class, ITableEntity, new()
+    {
+        var tableClient = _tableServiceClient.GetTableClient(tableName);
+        var entities = tableClient.QueryAsync<T>(filter);
+
+        var entitiesList = new List<T>();
+
+        await foreach (var entity in entities)
+        {
+            entitiesList.Add(entity);
+        }
+        return entitiesList;
+    }
 }
