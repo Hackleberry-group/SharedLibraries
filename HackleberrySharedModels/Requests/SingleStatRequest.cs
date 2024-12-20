@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace HackleberrySharedModels.Models
+namespace HackleberrySharedModels.Requests
 {
     public class SingleStatRequest
     {
