@@ -1,14 +1,9 @@
 using System.ComponentModel.DataAnnotations;
 
-namespace HackleberrySharedModels.DTOs.UserService;
+namespace HackleberrySharedModels.DTOs.UserDTOs;
 
-public class PutTeacherDTO
+public class CreateTeacherDTO
 {
-    [Required(ErrorMessage = "Id is required.")]
-    [RegularExpression(@"^[{(]?[0-9A-Fa-f]{8}[-]?[0-9A-Fa-f]{4}[-]?[0-9A-Fa-f]{4}[-]?[0-9A-Fa-f]{4}[-]?[0-9A-Fa-f]{12}[)}]?$", 
-        ErrorMessage = "TeacherId must be a valid GUID.")]
-    public Guid Id { get; set; }
-
     [Required(ErrorMessage = "First name is required.")]
     [StringLength(50, ErrorMessage = "First name cannot exceed 50 characters.")]
     public string FirstName { get; set; }

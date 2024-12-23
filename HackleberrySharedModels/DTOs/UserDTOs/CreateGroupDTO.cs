@@ -1,8 +1,8 @@
 using System.ComponentModel.DataAnnotations;
 
-namespace HackleberrySharedModels.DTOs.UserService;
+namespace HackleberrySharedModels.DTOs.UserDTOs;
 
-public class PutGroupDTO
+public class CreateGroupDTO
 {
     [Required(ErrorMessage = "Name is required.")]
     [StringLength(100, ErrorMessage = "Name cannot exceed 100 characters.")]
@@ -10,4 +10,5 @@ public class PutGroupDTO
 
     [Required(ErrorMessage = "TeacherId is required.")]
     public Guid TeacherId { get; set; }
+    
 }

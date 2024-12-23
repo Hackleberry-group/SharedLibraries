@@ -1,8 +1,8 @@
 using System.ComponentModel.DataAnnotations;
 
-namespace HackleberrySharedModels.DTOs.UserService;
+namespace HackleberrySharedModels.DTOs.UserDTOs;
 
-public class PutStudentDTO
+public class PutTeacherDTO
 {
     [Required(ErrorMessage = "Id is required.")]
     public Guid Id { get; set; }
@@ -20,6 +20,7 @@ public class PutStudentDTO
     [StringLength(100, ErrorMessage = "Email cannot exceed 100 characters.")]
     public string Email { get; set; }
 
-    [StringLength(50, ErrorMessage = "Nickname cannot exceed 50 characters.")]
-    public string NickName { get; set; }
+    [Required(ErrorMessage = "Employee number is required.")]
+    [Range(1, int.MaxValue, ErrorMessage = "Employee number must be a positive integer.")]
+    public int EmployeeNumber { get; set; }
 }

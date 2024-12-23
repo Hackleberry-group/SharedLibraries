@@ -1,6 +1,6 @@
 using System.ComponentModel.DataAnnotations;
 
-namespace HackleberrySharedModels.DTOs.UserService;
+namespace HackleberrySharedModels.DTOs.UserDTOs;
 
 public class CreateStudentGroupDTO
 { 
