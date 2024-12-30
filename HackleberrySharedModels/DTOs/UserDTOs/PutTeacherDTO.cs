@@ -16,11 +16,9 @@ public class PutTeacherDTO
     public string LastName { get; set; }
 
     [Required(ErrorMessage = "Email is required.")]
-    [EmailAddress(ErrorMessage = "Please provide a valid email address.")]
-    [StringLength(100, ErrorMessage = "Email cannot exceed 100 characters.")]
+    [EmailAddress(ErrorMessage = "Email is not valid.")]
     public string Email { get; set; }
 
     [Required(ErrorMessage = "Employee number is required.")]
-    [Range(1, int.MaxValue, ErrorMessage = "Employee number must be a positive integer.")]
-    public int EmployeeNumber { get; set; }
+    public string TeacherNumber { get; set; }
 }
