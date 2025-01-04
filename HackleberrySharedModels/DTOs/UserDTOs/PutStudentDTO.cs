@@ -16,5 +16,5 @@ public class PutStudentDTO
     public string LastName { get; set; }
 
     [StringLength(20, ErrorMessage = "Nickname cannot exceed 20 characters.")]
-    public string NickName { get; set; }
+    public string Nickname { get; set; }
 }

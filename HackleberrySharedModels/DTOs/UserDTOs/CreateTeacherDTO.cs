@@ -21,5 +21,7 @@ public class CreateTeacherDTO
     public string Password { get; init; }
 
     [Required(ErrorMessage = "Employee number is required.")]
+    [StringLength(10, ErrorMessage = "Employee number cannot exceed 10 characters.")]
+    [RegularExpression(@"^[0-9]*$", ErrorMessage = "Employee number must be numeric.")]
     public string TeacherNumber { get; init; }
 }

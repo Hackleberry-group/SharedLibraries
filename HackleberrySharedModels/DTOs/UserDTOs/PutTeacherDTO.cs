@@ -15,10 +15,6 @@ public class PutTeacherDTO
     [StringLength(50, ErrorMessage = "Last name cannot exceed 50 characters.")]
     public string LastName { get; set; }
 
-    [Required(ErrorMessage = "Email is required.")]
-    [EmailAddress(ErrorMessage = "Email is not valid.")]
-    public string Email { get; set; }
-
     [Required(ErrorMessage = "Employee number is required.")]
     public string TeacherNumber { get; set; }
 }
