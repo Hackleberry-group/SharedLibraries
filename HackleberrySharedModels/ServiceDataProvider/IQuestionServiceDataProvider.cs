@@ -4,5 +4,5 @@ namespace HackleberrySharedModels.ServiceDataProviders;
 
 public interface IQuestionServiceDataProvider
 {
-    Task<IEnumerable<BaseQuestionDto>> GetQuestionsOfExerciseAsync(Guid exerciseId);
+    IEnumerable<BaseQuestionDto> GetQuestionsOfExercise(Guid exerciseId);
 }

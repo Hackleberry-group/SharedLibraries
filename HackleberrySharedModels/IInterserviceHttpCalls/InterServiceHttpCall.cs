@@ -7,7 +7,14 @@ public class InterServiceHttpCall : IInterserviceHttpCall
     public string ServiceUrl { get; set; }
     // Hidden Only get the Configured one 
     public HttpClient _httpClient { get; set; }
-    
+
+
+    public InterServiceHttpCall(string serviceUrl, IHttpClientFactory httpClientFactory)
+    {
+        ServiceUrl = serviceUrl;
+        _httpClient = httpClientFactory.CreateClient();
+    }
+
 
     public virtual HttpClient GetConfiguredClient()
     {
