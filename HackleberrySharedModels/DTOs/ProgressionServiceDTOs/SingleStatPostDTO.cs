@@ -1,10 +1,7 @@
-﻿using System;
-
-namespace HackleberrySharedModels.Requests
+﻿namespace HackleberryModels.DTOs.ProgressionServiceDTOs
 {
-    public class SingleStatRequest
+    public record SingleStatPostDTO
     {
-        // public Guid StudentId { get; set; }
         public Guid ExerciseId { get; set; }
         public bool IsExerciseCompleted { get; set; }
         public int NumberOfAnswersCorrect { get; set; }
