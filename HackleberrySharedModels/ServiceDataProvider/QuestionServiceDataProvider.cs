@@ -24,9 +24,13 @@ public class QuestionServiceDataProvider : IQuestionServiceDataProvider
     {
         try
         {
-            var response = client.GetAsync($"{nameof(exerciseId)}={exerciseId}").Result;
+            var response = client.GetAsync($"?{nameof(exerciseId)}={exerciseId}").Result;
             response.EnsureSuccessStatusCode();
             var content = response.Content.ReadAsStringAsync().Result;
+            if(string.IsNullOrEmpty(content))
+            {
+                return Enumerable.Empty<BaseQuestionDto>();
+            }
             return JsonSerializer.Deserialize<IEnumerable<BaseQuestionDto>>(content, _options);
         }
         catch (Exception e)
