@@ -1,8 +1,8 @@
-using HackelberrySharedModels.Dtos.Questions;
+using HackleberrySharedModels.DTOs.Questions;
 
 namespace HackleberrySharedModels.ServiceDataProviders;
 
-public class IQuestionServiceDataProvider
+public interface IQuestionServiceDataProvider
 {
     Task<IEnumerable<BaseQuestionDto>> GetQuestionsOfExerciseAsync(Guid exerciseId);
 }

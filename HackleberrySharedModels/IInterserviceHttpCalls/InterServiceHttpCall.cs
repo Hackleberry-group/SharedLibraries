@@ -1,8 +1,8 @@
 using System.Net.Http;
 
-namespace HackleberrySharedModels.InterMicroserviceHttpCalls;
+namespace HackleberrySharedModels.IInterserviceHttpCalls;
 
-public class BaseServiceHttpCall : IBaseServiceHttpCall
+public class InterServiceHttpCall : IInterserviceHttpCall
 {
     public string ServiceUrl { get; set; }
     // Hidden Only get the Configured one 
