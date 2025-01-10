@@ -12,7 +12,9 @@ public class InterServiceHttpCall : IInterserviceHttpCall
     public InterServiceHttpCall(string serviceUrl, IHttpClientFactory httpClientFactory)
     {
         ServiceUrl = serviceUrl;
-        _httpClient = httpClientFactory.CreateClient();
+        var client = httpClientFactory.CreateClient();
+        client.BaseAddress = new Uri(ServiceUrl);
+        _httpClient = client;
     }
 
 
