@@ -1,6 +1,6 @@
-﻿namespace HackleberrySharedModels.Requests
+﻿namespace HackleberryModels.DTOs.ProgressionServiceDTOs
 {
-    public class LevelRequest
+    public record LevelResponseDTO
     {
         public int LevelNumber { get; set; }
         public int RequiredXP { get; set; }

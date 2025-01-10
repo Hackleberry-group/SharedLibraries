@@ -1,9 +1,6 @@
-﻿using Azure;
-using Azure.Data.Tables;
-
-namespace HackleberryModels.Responses
+﻿namespace HackleberryModels.DTOs.ProgressionServiceDTOs
 {
-    public class StudentStatResponse
+    public record StudentStatResponseDTO
     {
         public Guid StudentId { get; set; }
         public int TotalNumberOfAnswersCorrect { get; set; }
@@ -13,7 +10,6 @@ namespace HackleberryModels.Responses
         public int Level { get; set; }
         public int StreakNumber { get; set; }
         public bool StreakFreezeAvailable { get; set; }
-
-        public string LastStreakDay { get; set; }
+        public DateTime LastStreakDay { get; set; }
     }
 }
