@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel;
+using System.ComponentModel.DataAnnotations;
 
 namespace HackleberryModels.DTOs.AuthDTOs
 {
@@ -8,6 +9,8 @@ namespace HackleberryModels.DTOs.AuthDTOs
         public string Email { get; init; }
         [Required]
         public string Password { get; init; }
+        [Required]
+        public string ConfirmPassword { get; init; }
         [Required]
         public string FirstName { get; init; }
         [Required]
