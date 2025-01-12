@@ -25,7 +25,7 @@ public static class HttpClientConfigurator
         bool circuitBreaker,
         int timeout = 30)
     {
-        if (circuitBreaker == true)
+        if (circuitBreaker == false)
         {
             services.AddHttpClient(clientName, client =>
             {
