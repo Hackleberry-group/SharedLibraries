@@ -1,6 +1,6 @@
 ﻿namespace HackleberryModels.DTOs.ProgressionServiceDTOs
 {
-    public record StudentStatResponseDTO
+    public record StudentStatDTO
     {
         public Guid StudentId { get; set; }
         public int TotalNumberOfAnswersCorrect { get; set; }
