@@ -1,4 +1,6 @@
-﻿namespace HackleberryModels.DTOs.ProgressionServiceDTOs;
+﻿using HackleberryModels.DTOs.AchievementDTOs;
+
+namespace HackleberryModels.DTOs.ProgressionServiceDTOs;
 
 public record ExerciseCompletionDTO
 {
@@ -12,5 +14,5 @@ public record ExerciseCompletionDTO
 
     public double StreakModifier { get; set; }
 
-    //public AchievementDetailsDTO? NewAchievement { get; set; }
+    public AchievementDetailsDTO? NewAchievement { get; set; }
 }
