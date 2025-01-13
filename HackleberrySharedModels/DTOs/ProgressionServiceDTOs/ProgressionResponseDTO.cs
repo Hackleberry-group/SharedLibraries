@@ -4,6 +4,6 @@
     {
         public Guid StudentId { get; set; }
         public double ProgressPercentage { get; set; }
-        public List<ExerciseStateDTO> ExerciseStates { get; set; }
+        public IEnumerable<ExerciseStateDTO> ExerciseStates { get; set; }
     }
 }
