@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace HackleberryModels.DTOs.UserDTOs
+namespace HackleberrySharedModels.DTOs.UserDTOs
 {
     public record LinkCourseRequestDTO
     {
