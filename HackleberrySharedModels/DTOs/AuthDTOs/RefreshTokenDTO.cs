@@ -8,6 +8,6 @@ namespace HackleberryModels.DTOs.AuthDTOs
         public Guid UserId { get; init; }
 
         [Required]
-        public string RefreshToken { get; init; }
+        public required string RefreshToken { get; init; }
     }
 }

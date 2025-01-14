@@ -5,6 +5,6 @@ namespace HackleberryModels.DTOs.AuthDTOs
     public record LogoutDTO 
     { 
         [Required]
-        public string UserId { get; init; }
+        public required string UserId { get; init; }
     }
 }

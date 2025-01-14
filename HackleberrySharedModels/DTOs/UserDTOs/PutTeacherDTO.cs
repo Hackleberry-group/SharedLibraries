@@ -9,12 +9,12 @@ public class PutTeacherDTO
 
     [Required(ErrorMessage = "First name is required.")]
     [StringLength(50, ErrorMessage = "First name cannot exceed 50 characters.")]
-    public string FirstName { get; set; }
+    public required string FirstName { get; set; }
 
     [Required(ErrorMessage = "Last name is required.")]
     [StringLength(50, ErrorMessage = "Last name cannot exceed 50 characters.")]
-    public string LastName { get; set; }
+    public required string LastName { get; set; }
 
     [Required(ErrorMessage = "Employee number is required.")]
-    public string TeacherNumber { get; set; }
+    public required string TeacherNumber { get; set; }
 }
