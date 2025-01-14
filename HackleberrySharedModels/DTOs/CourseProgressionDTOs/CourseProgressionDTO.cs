@@ -6,7 +6,7 @@
         public Guid CourseId { get; init; }
         public string CourseName { get; init; }
         public string ProgrammingLanguage { get; init; }
-        public int ProgressionPercentage { get; init; }
-        public List<ModuleProgressionDTO> ModuleProgressions { get; init; } = new List<ModuleProgressionDTO>();
+        public int ProgressionPercentage { get; set; }
+        public List<ModuleProgressionDTO> ModuleProgressions { get; set; } = new List<ModuleProgressionDTO>();
     }
 }

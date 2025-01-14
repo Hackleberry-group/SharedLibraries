@@ -6,6 +6,6 @@
         public string Name { get; set; }
         public int Order { get; set; }
         public int ProgressionPercentage { get; set; }
-        public IEnumerable<TopicProgressionDTO> TopicProgressions { get; set; } = new List<TopicProgressionDTO>();
+        public List<TopicProgressionDTO> TopicProgressions { get; set; } = new List<TopicProgressionDTO>();
     }
 }

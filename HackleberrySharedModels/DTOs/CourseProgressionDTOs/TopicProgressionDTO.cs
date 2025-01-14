@@ -6,6 +6,6 @@
         public required string Name { get; set; }
         public int Order { get; set; }
         public int ProgressionPercentage { get; set; }
-        public IEnumerable<ExerciseProgressionDTO> ExerciseProgressions { get; set; } = new List<ExerciseProgressionDTO>();
+        public List<ExerciseProgressionDTO> ExerciseProgressions { get; set; } = new List<ExerciseProgressionDTO>();
     }
 }
