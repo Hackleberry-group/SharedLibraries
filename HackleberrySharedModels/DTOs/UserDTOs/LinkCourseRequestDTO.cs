@@ -1,8 +1,10 @@
 using System.ComponentModel.DataAnnotations;
 
-namespace HackleberrySharedModels.DTOs.UserDTOs;
-
-public class LinkCourseRequestDTO
+namespace HackleberrySharedModels.DTOs.UserDTOs
 {
-    public Guid CourseId { get; set; }
+    public record LinkCourseRequestDTO
+    {
+        [Required]
+        public Guid CourseId { get; init; }
+    }
 }
