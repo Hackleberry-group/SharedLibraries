@@ -15,4 +15,8 @@
     <PackageReference Include="Polly" Version="8.5.0" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\HackleberrySharedModels\HackleberryModels.csproj" />
+  </ItemGroup>
+
 </Project>

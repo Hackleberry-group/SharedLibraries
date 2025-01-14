@@ -1,6 +1,6 @@
 using HackleberrySharedModels.DTOs.Questions;
 
-namespace HackleberrySharedModels.ServiceDataProviders;
+namespace HackleberryServices.Services.ServiceDataProviders;
 
 public interface IQuestionServiceDataProvider
 {
