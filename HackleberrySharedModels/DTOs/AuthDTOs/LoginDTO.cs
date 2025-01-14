@@ -6,9 +6,9 @@ namespace HackleberryModels.DTOs.AuthDTOs
     {
         [Required(ErrorMessage = "Email is required.")]
         [EmailAddress(ErrorMessage = "Email is not valid.")]
-        public string Email { get; init; }
+        public required string Email { get; init; }
 
         [Required(ErrorMessage = "Password is required.")]
-        public string Password { get; init; }
+        public required string Password { get; init; }
     }
 }

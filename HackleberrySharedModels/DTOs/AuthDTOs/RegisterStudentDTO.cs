@@ -5,22 +5,29 @@ namespace HackleberryModels.DTOs.AuthDTOs
     public record RegisterStudentDTO
     {
         [Required, EmailAddress]
-        public string Email { get; init; }
+        public required string Email { get; init; }
+        
         [Required]
-        public string Password { get; init; }
+        public required string Password { get; init; }
+        
         [Required]
-        public string ConfirmPassword { get; init; }
+        public required string ConfirmPassword { get; init; }
+        
         [Required]
         [StringLength(50, ErrorMessage = "First name cannot exceed 50 characters.")]
-        public string FirstName { get; init; }
+        public required string FirstName { get; init; }
+        
         [Required]
         [StringLength(50, ErrorMessage = "Last name cannot exceed 50 characters.")]
-        public string LastName { get; init; }
+        public required string LastName { get; init; }
+        
         [Required]
         [RegularExpression(@"^[0-9]*$", ErrorMessage = "Student number must be numeric.")]
-        public string StudentNumber { get; init; }
+        [StringLength(10, MinimumLength = 6, ErrorMessage = "Student number must be at least 6 numbers.")]
+        public required string StudentNumber { get; init; }
+        
         [Required]
-        [StringLength(50, ErrorMessage = "Nick name cannot exceed 50 characters.")]
-        public string Nickname { get; init; }
+        [StringLength(50, ErrorMessage = "Nickname cannot exceed 50 characters.")]
+        public required string Nickname { get; init; }
     }
 }
