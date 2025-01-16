@@ -17,5 +17,10 @@ namespace HackleberrySharedModels.Exceptions
         protected ApiException(string message, Exception innerException) : base(message, innerException)
         {
         }
+
+        public override string ToString()
+        {
+            return GetType().Name;
+        }
     }
 }
