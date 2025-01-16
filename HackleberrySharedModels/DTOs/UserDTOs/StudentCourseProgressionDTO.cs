@@ -1,4 +1,3 @@
-using System.ComponentModel.DataAnnotations;
 using HackleberryModels.DTOs.CourseProgressionDTOs;
 
 namespace HackleberrySharedModels.DTOs.UserDTOs;
