@@ -17,17 +17,17 @@ public static class ClaimsHelper
 
     public static bool IsTeacher(ClaimsPrincipal user)
     {
-        return IsInRole(user, "Teacher");
+        return IsInRole(user, TeacherRole);
     }
 
     public static bool IsStudent(ClaimsPrincipal user)
     {
-        return IsInRole(user, "Student");
+        return IsInRole(user, StudentRole);
     }
 
     public static bool IsAdmin(ClaimsPrincipal user)
     {
-        return IsInRole(user, "Admin");
+        return IsInRole(user, AdminRole);
     }
 
     public static string? GetUserEmail(ClaimsPrincipal user)
@@ -39,4 +39,8 @@ public static class ClaimsHelper
     {
         return user.FindFirst(ClaimTypes.Name)?.Value;
     }
+
+    public static readonly string AdminRole = "Admin";
+    public static readonly string TeacherRole = "Teacher";
+    public static readonly string StudentRole = "Student";
 }
