@@ -2,6 +2,9 @@
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Logging;
 using System.ComponentModel.DataAnnotations;
+using Sentry;
+using System.Web.Http.Results;
+using System.Text.Json;
 
 namespace HackleberryExceptions;
 
@@ -28,61 +31,77 @@ public class GlobalExceptionHandlerMiddleware
         }
     }
 
-    private async Task HandleExceptionAsync(HttpContext context, Exception exception)
+   private async Task HandleExceptionAsync(HttpContext context, Exception exception)
+{
+    context.Response.ContentType = "application/json";
+
+    ErrorResponse errorResponse;
+    switch (exception)
     {
-        context.Response.ContentType = "application/json";
+        case InternalErrorException internalErrorException:
+            _logger.LogError(internalErrorException, "An internal error occurred Here");
+            SentrySdk.CaptureException(internalErrorException, scope =>
+            {
+                scope.SetTag("exceptionKnown", true.ToString());
+            });
+            
+            context.Response.StatusCode = (int)internalErrorException.StatusCode;
+            errorResponse = new InternalServerErrorResponse
+            {
+                Message = internalErrorException.Message ?? "Internal server error."
+            };
+             break;
 
-        var errorResponse = new ErrorResponse();
+        case ApiException apiException:
+            context.Response.StatusCode = (int)apiException.StatusCode;
+            errorResponse = new ErrorResponse
+            {
+                Message = apiException.Message
+            };
+            break;
 
-        switch (exception)
-        {
-            case ValidationException validationException:
-                context.Response.StatusCode = StatusCodes.Status400BadRequest;
-                errorResponse.Message = "Validation failed";
-                break;
+        case ValidationException validationException:
+            context.Response.StatusCode = StatusCodes.Status400BadRequest;
+            errorResponse = new ErrorResponse
+            {
+                Message = "Validation failed"
+            };
+            break;
 
-            case UnauthorizedAccessException:
-                context.Response.StatusCode = StatusCodes.Status401Unauthorized;
-                errorResponse.Message = "Unauthorized access";
-                break;
+        case InvalidOperationException invalidOpException:
+            context.Response.StatusCode = StatusCodes.Status400BadRequest;
+            errorResponse = new ErrorResponse
+            {
+                Message = invalidOpException.Message ?? "Invalid operation requested."
+            };
+            break;
 
-            case InvalidOperationException invalidOpException:
-                context.Response.StatusCode = StatusCodes.Status400BadRequest;
-                errorResponse.Message = invalidOpException.Message ?? "Invalid operation requested.";
-                break;
-
-            case NotFoundException notFoundException:
-                context.Response.StatusCode = StatusCodes.Status404NotFound;
-                errorResponse.Message = notFoundException.Message ?? "Resource not found.";
-                break;
-
-            case AlreadyExistsException alreadyExistsException:
-                context.Response.StatusCode = StatusCodes.Status409Conflict;
-                errorResponse.Message = alreadyExistsException.Message ?? "Resource already exists.";
-                break;
-
-            case ForbiddenException forbiddenException:
-                context.Response.StatusCode = StatusCodes.Status403Forbidden;
-                errorResponse.Message = forbiddenException.Message ?? "Forbidden access.";
-                break;
-
-            case BadRequestException badRequestException:
-                context.Response.StatusCode = StatusCodes.Status400BadRequest;
-                errorResponse.Message = badRequestException.Message ?? "Bad request.";
-                break;
-
-            case InternalErrorException internalErrorException:
-                context.Response.StatusCode = StatusCodes.Status500InternalServerError;
-                errorResponse.Message = internalErrorException.Message ?? "Internal server error.";
-                break;
-
-            default:
-                _logger.LogError(exception, "An unexpected error occurred");
-                context.Response.StatusCode = StatusCodes.Status500InternalServerError;
-                errorResponse.Message = "An internal server error occurred";
-                break;
-        }
-
-        await context.Response.WriteAsJsonAsync(errorResponse);
+        default:
+            SentrySdk.CaptureException(exception, scope =>
+            {
+                // This tag will help us to filter out the exceptions that are known
+                scope.SetTag("exceptionKnown", false.ToString());
+            });
+            _logger.LogError(exception, "An unexpected error occurred");
+            errorResponse = new InternalServerErrorResponse
+            {
+                Message = "An internal server error occurred that couldn't be handled."
+            };
+            context.Response.StatusCode = StatusCodes.Status500InternalServerError;
+            break;
     }
+
+    var options = new JsonSerializerOptions
+    {
+        WriteIndented = true,
+        PropertyNamingPolicy = JsonNamingPolicy.CamelCase
+    };
+    
+    if(errorResponse is InternalServerErrorResponse internalServerErrorResponse)
+    {
+        internalServerErrorResponse.TraceId = SentrySdk.LastEventId.ToString();
+    }
+
+    await context.Response.WriteAsJsonAsync(errorResponse, errorResponse.GetType(), options);
+}
 }
