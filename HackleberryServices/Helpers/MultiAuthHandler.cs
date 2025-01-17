@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Authorization;
+﻿using HackleberryServices.Helpers;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection.Extensions;
@@ -109,8 +110,7 @@ public static class MultiAuthExtensions
             options.AddPolicy("MultiAuth", policy =>
                 policy.Requirements.Add(new MultiAuthRequirement()));
 
-
-            var defaultRoles = new[] { "Admin", "Student", "Teacher"};
+            var defaultRoles = new[] { ClaimsHelper.Roles.AdminRole, ClaimsHelper.Roles.StudentRole, ClaimsHelper.Roles.TeacherRole};
             foreach (var role in defaultRoles)
             {
                 options.AddPolicy($"MultiAuth_{role}", policy =>
