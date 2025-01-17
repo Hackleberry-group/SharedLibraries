@@ -27,7 +27,7 @@ public static class ClaimsHelper
 
     public static bool IsAdmin(ClaimsPrincipal user)
     {
-        return IsInRole(user, Roles.Admin);
+        return IsInRole(user, Roles.Admin) || user.HasClaim(ClaimTypes.AuthenticationMethod, "ApiKey");
     }
 
     public static string? GetUserEmail(ClaimsPrincipal user)
