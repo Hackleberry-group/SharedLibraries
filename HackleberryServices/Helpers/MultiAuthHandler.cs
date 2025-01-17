@@ -125,6 +125,9 @@ public static class MultiAuthExtensions
 
             options.AddPolicy(ClaimsHelper.Policies.RequireStudentRole, policy =>
             policy.Requirements.Add(new MultiAuthRequirement(new[] { ClaimsHelper.Roles.Admin, ClaimsHelper.Roles.Student })));
+
+            options.AddPolicy(ClaimsHelper.Policies.AllowAll, policy =>
+            policy.Requirements.Add(new MultiAuthRequirement(new[] { ClaimsHelper.Roles.Admin, ClaimsHelper.Roles.Teacher, ClaimsHelper.Roles.Student })));
         });
 
         services.AddScoped<IAuthorizationHandler, MultiAuthHandler>();

@@ -45,6 +45,7 @@ public static class ClaimsHelper
         public const string RequireAdminRole = "MultiAuth_Admin";
         public const string RequireTeacherRole = "MultiAuth_Admin_Teacher";
         public const string RequireStudentRole = "MultiAuth_Admin_Student";
+        public const string AllowAll = "MultiAuth_Admin_Student_Teacher";
     }
 
     public static class Roles
