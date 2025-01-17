@@ -90,9 +90,9 @@ public class ApiKeyOptions
 
 public class MultiAuthAttribute : AuthorizeAttribute
 {
-    public MultiAuthAttribute(params string[] roles)
+    public MultiAuthAttribute(string multiAuthPolicy)
     {
-        Policy = $"MultiAuth_{string.Join("_", roles)}";
+        Policy = multiAuthPolicy;
     }
 }
 
@@ -110,12 +110,21 @@ public static class MultiAuthExtensions
             options.AddPolicy("MultiAuth", policy =>
                 policy.Requirements.Add(new MultiAuthRequirement()));
 
-            var defaultRoles = new[] { ClaimsHelper.Roles.AdminRole, ClaimsHelper.Roles.StudentRole, ClaimsHelper.Roles.TeacherRole};
+            var defaultRoles = new[] { ClaimsHelper.Roles.Admin, ClaimsHelper.Roles.Student, ClaimsHelper.Roles.Teacher};
             foreach (var role in defaultRoles)
             {
                 options.AddPolicy($"MultiAuth_{role}", policy =>
                     policy.Requirements.Add(new MultiAuthRequirement(new[] { role })));
             }
+
+            options.AddPolicy(ClaimsHelper.Policies.RequireAdminRole, policy =>
+                policy.Requirements.Add(new MultiAuthRequirement(new[] { ClaimsHelper.Roles.Admin })));
+
+            options.AddPolicy(ClaimsHelper.Policies.RequireTeacherRole, policy =>
+                policy.Requirements.Add(new MultiAuthRequirement(new[] { ClaimsHelper.Roles.Admin, ClaimsHelper.Roles.Teacher })));
+
+            options.AddPolicy(ClaimsHelper.Policies.RequireStudentRole, policy =>
+            policy.Requirements.Add(new MultiAuthRequirement(new[] { ClaimsHelper.Roles.Admin, ClaimsHelper.Roles.Student })));
         });
 
         services.AddScoped<IAuthorizationHandler, MultiAuthHandler>();

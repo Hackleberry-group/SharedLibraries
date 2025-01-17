@@ -17,17 +17,17 @@ public static class ClaimsHelper
 
     public static bool IsTeacher(ClaimsPrincipal user)
     {
-        return IsInRole(user, Roles.TeacherRole);
+        return IsInRole(user, Roles.Teacher);
     }
 
     public static bool IsStudent(ClaimsPrincipal user)
     {
-        return IsInRole(user, Roles.StudentRole);
+        return IsInRole(user, Roles.Student);
     }
 
     public static bool IsAdmin(ClaimsPrincipal user)
     {
-        return IsInRole(user, Roles.AdminRole);
+        return IsInRole(user, Roles.Admin) || user.HasClaim(ClaimTypes.AuthenticationMethod, "ApiKey");
     }
 
     public static string? GetUserEmail(ClaimsPrincipal user)
@@ -42,16 +42,16 @@ public static class ClaimsHelper
 
     public static class Policies
     {
-        public const string RequireAdminRole = "RequireAdminRole";
-        public const string RequireTeacherRole = "RequireTeacherRole";
-        public const string RequireStudentRole = "RequireStudentRole";
+        public const string RequireAdminRole = "MultiAuth_Admin";
+        public const string RequireTeacherRole = "MultiAuth_Admin_Teacher";
+        public const string RequireStudentRole = "MultiAuth_Admin_Student";
     }
 
     public static class Roles
     {
-        public static readonly string AdminRole = "Admin";
-        public static readonly string TeacherRole = "Teacher";
-        public static readonly string StudentRole = "Student";
+        public const string Admin = "Admin";
+        public const string Teacher = "Teacher";
+        public const string Student = "Student";
     }
 }
 
