@@ -17,13 +17,16 @@ public static class HttpClientConfigurator
     /// <param name="retryCount">The base address of the API.</param>
     /// <param name="circuitBreaker">Whether to use a circuit breaker policy.</param>
     /// <param name="timeout">Optional timeout duration in seconds (defaults to 30)</param>
+    /// <param name="apiKey">API Key used as a request header</param>
     public static void AddConfiguredHttpClient(
         IServiceCollection services,
         string clientName,
         string baseAddress,
         int retryCount,
         bool circuitBreaker,
-        int timeout = 30)
+        string apiKey,
+        int timeout = 30
+        )
     {
         if (circuitBreaker == false)
         {
@@ -32,6 +35,7 @@ public static class HttpClientConfigurator
                 client.BaseAddress = new Uri(baseAddress);
                 client.DefaultRequestHeaders.Accept.Add(new System.Net.Http.Headers.MediaTypeWithQualityHeaderValue("application/json"));
                 client.Timeout = TimeSpan.FromSeconds(timeout);
+                client.DefaultRequestHeaders.Add("X-API-Key", apiKey);
             })
             .AddPolicyHandler((provider, _) => GetRetryPolicy(provider, retryCount))
             .AddPolicyHandler(GetTimeoutPolicy(timeout));
@@ -43,6 +47,7 @@ public static class HttpClientConfigurator
                 client.BaseAddress = new Uri(baseAddress);
                 client.DefaultRequestHeaders.Accept.Add(new System.Net.Http.Headers.MediaTypeWithQualityHeaderValue("application/json"));
                 client.Timeout = TimeSpan.FromSeconds(timeout);
+                client.DefaultRequestHeaders.Add("X-API-Key", apiKey);
             })
             .AddPolicyHandler((provider, _) => GetRetryPolicy(provider, retryCount))
             .AddPolicyHandler((provider, _) => GetCircuitBreakerPolicy(provider))
