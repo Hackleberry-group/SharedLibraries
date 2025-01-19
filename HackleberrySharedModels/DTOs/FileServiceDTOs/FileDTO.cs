@@ -10,14 +10,13 @@ namespace HackleberryModels.DTOs.FileServiceDTOs
     {
         public Guid Id { get; set; }
         public string Name { get; set; }
-        public string? Url { get; set; } = null;
-        public FileDTO() { }
-        public FileDTO(Guid guid, string name) 
+        public string? Url { get; set; }
+        public FileDTO(Guid id, string name) 
         {
-            Id = guid;
+            Id = id;
             Name = name;
         }
-        public FileDTO(Guid guid, string name, string url) : this(guid, name)
+        public FileDTO(Guid id, string name, string url) : this(id, name)
         {
             Url = url;
         }
