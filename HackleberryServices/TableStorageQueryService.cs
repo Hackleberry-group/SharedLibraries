@@ -1,6 +1,7 @@
 ﻿using Azure;
 using Azure.Data.Tables;
 using HackleberryServices.Interfaces.Queries;
+using HackleberrySharedModels.Exceptions;
 
 namespace HackleberryServices.Services.Queries;
 
@@ -17,24 +18,25 @@ public class TableStorageQueryService : ITableStorageQueryService
     {
         var tableClient = _tableServiceClient.GetTableClient(tableName);
 
-        await tableClient.CreateIfNotExistsAsync();
-
-        var entities = new List<T>();
-
-        await foreach (var entity in tableClient.QueryAsync<T>())
+        try
         {
-            entities.Add(entity);
-        }
+            var entities = new List<T>();
 
-        return entities;
+            await foreach (var entity in tableClient.QueryAsync<T>()) entities.Add(entity);
+
+            return entities;
+        }
+        catch (RequestFailedException ex) when (ex.Status == 404)
+        {
+            return null;
+        }
     }
+
 
     public async Task<T> GetEntityAsync<T>(string tableName, string partitionKey, string rowKey)
         where T : class, ITableEntity, new()
     {
         var tableClient = _tableServiceClient.GetTableClient(tableName);
-
-        await tableClient.CreateIfNotExistsAsync();
 
         try
         {
@@ -46,24 +48,21 @@ public class TableStorageQueryService : ITableStorageQueryService
         }
     }
 
-    public async Task DeleteEntityAsync(string tableName, string partitionKey, string rowKey)
+    public async Task<IEnumerable<T>> GetEntitiesByFilterAsync<T>(string tableName, string filter)
+        where T : class, ITableEntity, new()
     {
         var tableClient = _tableServiceClient.GetTableClient(tableName);
 
-        await tableClient.DeleteEntityAsync(partitionKey, rowKey);
-    }
+        var entities = new List<T>();
 
-    public async Task<IEnumerable<T>> GetEntitiesByFilterAsync<T>(string tableName, string filter) where T : class, ITableEntity, new()
-    {
-        var tableClient = _tableServiceClient.GetTableClient(tableName);
-        var entities = tableClient.QueryAsync<T>(filter);
-
-        var entitiesList = new List<T>();
-
-        await foreach (var entity in entities)
+        try
         {
-            entitiesList.Add(entity);
+            await foreach (var entity in tableClient.QueryAsync<T>(filter)) entities.Add(entity);
+            return entities;
         }
-        return entitiesList;
+        catch (RequestFailedException ex) when (ex.Status == 404)
+        {
+            return entities;
+        }
     }
 }
