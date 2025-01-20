@@ -39,7 +39,8 @@ public class TableStorageCommandService : ITableStorageCommandService
 
         try
         {
-            await tableClient.UpdateEntityAsync(entity, entity.ETag, TableUpdateMode.Replace);
+            var existingEntity = await tableClient.GetEntityAsync<T>(entity.PartitionKey, entity.RowKey);
+            await tableClient.UpdateEntityAsync(entity, existingEntity.Value.ETag, TableUpdateMode.Replace);
         }
         catch (RequestFailedException ex) when (ex.Status == 404)
         {
