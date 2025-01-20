@@ -32,6 +32,22 @@ public class TableStorageQueryService : ITableStorageQueryService
         }
     }
 
+    public async Task<IEnumerable<T>> GetEntitiesByPartitionKeyAsync<T>(string tableName, string partitionKey)
+        where T : class, ITableEntity, new()
+    {
+        var tableClient = _tableServiceClient.GetTableClient(tableName);
+        var entities = new List<T>();
+        try
+        {
+            await foreach (var entity in tableClient.QueryAsync<T>(e => e.PartitionKey == partitionKey)) entities.Add(entity);
+            return entities;
+        }
+        catch (RequestFailedException ex) when (ex.Status == 404)
+        {
+            return null;
+        }
+    }
+
 
     public async Task<T> GetEntityAsync<T>(string tableName, string partitionKey, string rowKey)
         where T : class, ITableEntity, new()
