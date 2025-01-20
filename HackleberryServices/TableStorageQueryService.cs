@@ -48,6 +48,26 @@ public class TableStorageQueryService : ITableStorageQueryService
         }
     }
 
+    public async Task<T> GetEntityAsync<T>(string tableName, string rowKey)
+        where T : class, ITableEntity, new()
+    {
+        var tableClient = _tableServiceClient.GetTableClient(tableName);
+
+        try
+        {
+            await foreach (var entity in tableClient.QueryAsync<T>(e => e.RowKey == rowKey))
+            {
+                return entity;
+            }
+            return null;
+        }
+        catch (RequestFailedException ex) when (ex.Status == 404)
+        {
+            throw new NotFoundException();
+        }
+    }
+
+
     public async Task<IEnumerable<T>> GetEntitiesByFilterAsync<T>(string tableName, string filter)
         where T : class, ITableEntity, new()
     {
