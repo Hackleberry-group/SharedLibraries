@@ -12,9 +12,9 @@ public record MultipleChoiceQuestionDto : BaseCodeBlockTextableAndTextableQuesti
             yield return validationResult;
         }
 
-        if (AnswerOptions.OfType<MultipleChoiceAnswerOptionDto>().Count(a => a.IsCorrect) != 1)
+        if (AnswerOptions.OfType<MultipleChoiceAnswerOptionDto>().Count(a => a.IsCorrect) < 1)
         {
-            yield return new ValidationResult($" {GetNameOfQuestionType()} must have exactly 1 correct answer option",
+            yield return new ValidationResult($" {GetNameOfQuestionType()} must have at least 1 correct answer option",
                 new[] { nameof(AnswerOptions) });
         }
     }
