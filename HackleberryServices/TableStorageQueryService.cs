@@ -36,11 +36,10 @@ public class TableStorageQueryService : ITableStorageQueryService
         where T : class, ITableEntity, new()
     {
         var tableClient = _tableServiceClient.GetTableClient(tableName);
-        var entities = new List<T>();
+
         try
         {
-            await foreach (var entity in tableClient.QueryAsync<T>(e => e.PartitionKey == partitionKey)) entities.Add(entity);
-            return entities;
+            return tableClient.QueryAsync<T>(e => e.PartitionKey == partitionKey).ToBlockingEnumerable();
         }
         catch (RequestFailedException ex) when (ex.Status == 404)
         {
